@@ -1,0 +1,6 @@
+name: kind-local-cluster
+endpoint: https://127.0.0.1:43405
+
+name: kind-second-cluster
+endpoint: https://127.0.0.1:35955
+

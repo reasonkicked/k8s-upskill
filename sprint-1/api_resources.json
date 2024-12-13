@@ -1,0 +1,409 @@
+[
+  {
+    "name": "componentstatuses",
+    "shortnames": "cs",
+    "apigroup": "v1",
+    "namespaced": "false",
+    "kind": "ComponentStatus"
+  }
+,
+  {
+    "name": "configmaps",
+    "shortnames": "cm",
+    "apigroup": "v1",
+    "namespaced": "true",
+    "kind": "ConfigMap"
+  }
+,
+  {
+    "name": "endpoints",
+    "shortnames": "ep",
+    "apigroup": "v1",
+    "namespaced": "true",
+    "kind": "Endpoints"
+  }
+,
+  {
+    "name": "events",
+    "shortnames": "ev",
+    "apigroup": "v1",
+    "namespaced": "true",
+    "kind": "Event"
+  }
+,
+  {
+    "name": "limitranges",
+    "shortnames": "limits",
+    "apigroup": "v1",
+    "namespaced": "true",
+    "kind": "LimitRange"
+  }
+,
+  {
+    "name": "namespaces",
+    "shortnames": "ns",
+    "apigroup": "v1",
+    "namespaced": "false",
+    "kind": "Namespace"
+  }
+,
+  {
+    "name": "nodes",
+    "shortnames": "no",
+    "apigroup": "v1",
+    "namespaced": "false",
+    "kind": "Node"
+  }
+,
+  {
+    "name": "persistentvolumeclaims",
+    "shortnames": "pvc",
+    "apigroup": "v1",
+    "namespaced": "true",
+    "kind": "PersistentVolumeClaim"
+  }
+,
+  {
+    "name": "persistentvolumes",
+    "shortnames": "pv",
+    "apigroup": "v1",
+    "namespaced": "false",
+    "kind": "PersistentVolume"
+  }
+,
+  {
+    "name": "pods",
+    "shortnames": "po",
+    "apigroup": "v1",
+    "namespaced": "true",
+    "kind": "Pod"
+  }
+,
+  {
+    "name": "podtemplates",
+    "shortnames": "v1",
+    "apigroup": "true",
+    "namespaced": "PodTemplate",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "replicationcontrollers",
+    "shortnames": "rc",
+    "apigroup": "v1",
+    "namespaced": "true",
+    "kind": "ReplicationController"
+  }
+,
+  {
+    "name": "resourcequotas",
+    "shortnames": "quota",
+    "apigroup": "v1",
+    "namespaced": "true",
+    "kind": "ResourceQuota"
+  }
+,
+  {
+    "name": "secrets",
+    "shortnames": "v1",
+    "apigroup": "true",
+    "namespaced": "Secret",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "serviceaccounts",
+    "shortnames": "sa",
+    "apigroup": "v1",
+    "namespaced": "true",
+    "kind": "ServiceAccount"
+  }
+,
+  {
+    "name": "services",
+    "shortnames": "svc",
+    "apigroup": "v1",
+    "namespaced": "true",
+    "kind": "Service"
+  }
+,
+  {
+    "name": "mutatingwebhookconfigurations",
+    "shortnames": "admissionregistration.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "MutatingWebhookConfiguration",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "validatingadmissionpolicies",
+    "shortnames": "admissionregistration.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "ValidatingAdmissionPolicy",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "validatingadmissionpolicybindings",
+    "shortnames": "admissionregistration.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "ValidatingAdmissionPolicyBinding",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "validatingwebhookconfigurations",
+    "shortnames": "admissionregistration.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "ValidatingWebhookConfiguration",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "customresourcedefinitions",
+    "shortnames": "crd,crds",
+    "apigroup": "apiextensions.k8s.io/v1",
+    "namespaced": "false",
+    "kind": "CustomResourceDefinition"
+  }
+,
+  {
+    "name": "apiservices",
+    "shortnames": "apiregistration.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "APIService",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "controllerrevisions",
+    "shortnames": "apps/v1",
+    "apigroup": "true",
+    "namespaced": "ControllerRevision",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "daemonsets",
+    "shortnames": "ds",
+    "apigroup": "apps/v1",
+    "namespaced": "true",
+    "kind": "DaemonSet"
+  }
+,
+  {
+    "name": "deployments",
+    "shortnames": "deploy",
+    "apigroup": "apps/v1",
+    "namespaced": "true",
+    "kind": "Deployment"
+  }
+,
+  {
+    "name": "replicasets",
+    "shortnames": "rs",
+    "apigroup": "apps/v1",
+    "namespaced": "true",
+    "kind": "ReplicaSet"
+  }
+,
+  {
+    "name": "statefulsets",
+    "shortnames": "sts",
+    "apigroup": "apps/v1",
+    "namespaced": "true",
+    "kind": "StatefulSet"
+  }
+,
+  {
+    "name": "horizontalpodautoscalers",
+    "shortnames": "hpa",
+    "apigroup": "autoscaling/v2",
+    "namespaced": "true",
+    "kind": "HorizontalPodAutoscaler"
+  }
+,
+  {
+    "name": "cronjobs",
+    "shortnames": "cj",
+    "apigroup": "batch/v1",
+    "namespaced": "true",
+    "kind": "CronJob"
+  }
+,
+  {
+    "name": "jobs",
+    "shortnames": "batch/v1",
+    "apigroup": "true",
+    "namespaced": "Job",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "certificatesigningrequests",
+    "shortnames": "csr",
+    "apigroup": "certificates.k8s.io/v1",
+    "namespaced": "false",
+    "kind": "CertificateSigningRequest"
+  }
+,
+  {
+    "name": "leases",
+    "shortnames": "coordination.k8s.io/v1",
+    "apigroup": "true",
+    "namespaced": "Lease",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "endpointslices",
+    "shortnames": "discovery.k8s.io/v1",
+    "apigroup": "true",
+    "namespaced": "EndpointSlice",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "events",
+    "shortnames": "ev",
+    "apigroup": "events.k8s.io/v1",
+    "namespaced": "true",
+    "kind": "Event"
+  }
+,
+  {
+    "name": "flowschemas",
+    "shortnames": "flowcontrol.apiserver.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "FlowSchema",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "prioritylevelconfigurations",
+    "shortnames": "flowcontrol.apiserver.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "PriorityLevelConfiguration",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "ingressclasses",
+    "shortnames": "networking.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "IngressClass",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "ingresses",
+    "shortnames": "ing",
+    "apigroup": "networking.k8s.io/v1",
+    "namespaced": "true",
+    "kind": "Ingress"
+  }
+,
+  {
+    "name": "networkpolicies",
+    "shortnames": "netpol",
+    "apigroup": "networking.k8s.io/v1",
+    "namespaced": "true",
+    "kind": "NetworkPolicy"
+  }
+,
+  {
+    "name": "runtimeclasses",
+    "shortnames": "node.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "RuntimeClass",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "poddisruptionbudgets",
+    "shortnames": "pdb",
+    "apigroup": "policy/v1",
+    "namespaced": "true",
+    "kind": "PodDisruptionBudget"
+  }
+,
+  {
+    "name": "clusterrolebindings",
+    "shortnames": "rbac.authorization.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "ClusterRoleBinding",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "clusterroles",
+    "shortnames": "rbac.authorization.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "ClusterRole",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "rolebindings",
+    "shortnames": "rbac.authorization.k8s.io/v1",
+    "apigroup": "true",
+    "namespaced": "RoleBinding",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "roles",
+    "shortnames": "rbac.authorization.k8s.io/v1",
+    "apigroup": "true",
+    "namespaced": "Role",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "priorityclasses",
+    "shortnames": "pc",
+    "apigroup": "scheduling.k8s.io/v1",
+    "namespaced": "false",
+    "kind": "PriorityClass"
+  }
+,
+  {
+    "name": "csidrivers",
+    "shortnames": "storage.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "CSIDriver",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "csinodes",
+    "shortnames": "storage.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "CSINode",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "csistoragecapacities",
+    "shortnames": "storage.k8s.io/v1",
+    "apigroup": "true",
+    "namespaced": "CSIStorageCapacity",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+,
+  {
+    "name": "storageclasses",
+    "shortnames": "sc",
+    "apigroup": "storage.k8s.io/v1",
+    "namespaced": "false",
+    "kind": "StorageClass"
+  }
+,
+  {
+    "name": "volumeattachments",
+    "shortnames": "storage.k8s.io/v1",
+    "apigroup": "false",
+    "namespaced": "VolumeAttachment",
+    "kind": "create,delete,deletecollection,get,list,patch,update,watch"
+  }
+]

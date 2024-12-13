@@ -1,0 +1,171 @@
+Upskill results:
+docker --version
+curl -Lo ./kind https://kind.sigs.k8s.io/dl/latest/kind-linux-amd64
+chmod +x ./kind
+sudo mv ./kind /usr/local/bin/kind
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+sudo mv kubectl /usr/local/bin/
+kubectl version --client
+
+
+Task 1
+kind create cluster --name local-cluster --image kindest/node:v1.28.0 (1.31.2 available)
+
+In a kind cluster, I can’t directly upgrade cluster, they are ephemeral by design and the tool lack of some useful for a production features. I’m deleting 1.28 and creating 1.31
+kind delete cluster --name local-cluster
+kind create cluster --name local-cluster --image kindest/node:v1.31.0
+kind create node --cluster local-cluster --role worker
+kind does not provide a direct command to add individual nodes to an existing cluster. I need to delete the cluster again
+kind create cluster --name local-cluster --config kind-config.yaml
+
+ 
+kubectl get nodes
+
+worker nodes typically do not have a specific "role" label like control-plane. The absence of a role for worker nodes in your kubectl get nodes output is expected unless explicitly labeled.
+kubectl get nodes -o wide
+
+kubectl describe node local-cluster-worker
+
+A lot of useful information there
+sudo kubectl label node local-cluster-worker kubernetes.io/role=worker
+
+ 
+Task 2
+Kubectl api-resources
+
+Most of resources are namespaced, but some are not.
+I can list resources in a specific API group (explicit)
+kubectl api-resources --api-group=apps
+List only namespaced resources:
+kubectl api-resources --namespaced=true
+List only cluster-wide resources:
+kubectl api-resources --namespaced=false
+I don’t see an easy way to extract names of objects basing on namespaced column
+
+
+To work around this limitation, you can convert the tabular output of kubectl api-resources into JSON format using tools like awk, sed, or a custom script. The steps below worked, it probably didn’t make sense but it was an interesting exercise though.
+kubectl api-resources --verbs=list -o wide > api_resources.txt
+convert to json:
+awk '
+BEGIN {
+    print "["
+}
+NR > 1 {
+    if (NR > 2) print ",";
+    print "  {"
+    print "    \"name\": \"" $1 "\","
+    print "    \"shortnames\": \"" $2 "\","
+    print "    \"apigroup\": \"" $3 "\","
+    print "    \"namespaced\": \"" $4 "\","
+    print "    \"kind\": \"" $5 "\""
+    print "  }"
+}
+END {
+    print "]"
+}' api_resources.txt > api_resources.json
+
+jq 'map(if .namespaced == "true" or .namespaced == "false"
+       then .
+       else .namespaced = (if .namespaced | test("true|RoleBinding|Secret|true") then "true" else "false" end) end)' api_resources.json > normalized_api_resources.json
+jq -r '.[] | select(.namespaced == "true") | .name' normalized_api_resources.json > namespaced_true.txt
+jq -r '.[] | select(.namespaced == "false") | .name' normalized_api_resources.json > namespaced_false.txt
+Task 3 – Kubeconfig
+kind create cluster --name second-cluster --image kindest/node:v1.28.0 --config second-cluster.yaml
+
+kubectl config get-contexts
+
+kubectl config current-context
+
+kubectl config use-context kind-second-cluster
+
+kubectl config view -o jsonpath='{range .clusters[*]}{"name: "}{.name}{"\nendpoint: "}{.cluster.server}{"\n\n"}{end}' > clusters_info.txt
+
+sudo apt update
+sudo apt install kubectx
+kubectx
+
+kubectx kind-local-cluster
+
+Task 4 – API Discovery
+Kubectl explain pod
+kubectl explain pod.spec.containers
+
+ 
+Task 5 – Namespaces
+Kubectx
+
+kubectl create namespace upskill
+
+
+kubectl apply -f namespace-upskill.yaml
+Kubectl get namespaces
+
+Task 6 – Pods
+kubectl run pod1 --image=nginx:1.22 -n upskill
+
+kubectl run pod2 --image=nginx:1.21 --dry-run=client -o yaml > pod2-manifest.yaml
+that command with --dry-run=client flag is used to generate resource definitions without applying them.
+kubectl run pod2 --image=nginx:1.21 -o yaml > pod2-manifest.yaml creates a pod in the default namespace
+
+
+
+ 
+kubectl describe pod pod2 -n default
+
+
+I can’t now directly use kubectl apply -f pod2-manifest.yaml
+error when patching "pod2-manifest.yaml": Operation cannot be fulfilled on pods "pod2": the object has been modified; please apply your changes to the latest version and try again
+namespace change
+kubectl config set-context --current --namespace=upskill
+
+kubectl get pod pod2 -n upskill -o yaml > live-pod2.yaml
+kubectl replace -f live-pod2.yaml
+
+Deleting pod2 also could help
+kubectl delete pod pod2 -n default
+
+kubectl get pods
+
+
+kubectl get pod pod2 -o yaml
+resource version has changed, there is a nodeName in output while in manifest there was not and the status has changed from pending to a detailed description
+
+Task 7 – Pod Lifecycle
+kubectl run pod3 --image=nginx && kubectl get pod pod3 -w
+
+kubectl run pod4 --image=nginx:2.0
+
+kubectl get pod pod4 -o custom-columns=NAME:.metadata.name,PHASE:.status.phase
+
+kubectl get pod pod4 -o custom-columns=NAME:.metadata.name,STATUS:.status.containerStatuses[0].state
+
+
+Kubectl describe pod pod4
+
+kubectl describe pod pod4 | grep -A10 Events > pod4-status-details.txt
+
+Probably there is no nginx:2.0 version
+
+Yup
+kubectl exec -it pod4 -n upskill -- nginx -v
+
+ 
+Task 9 - Pod Lifcycle
+kubectl run pod5 --image=ubuntu && kubectl get pod pod5 -w
+
+The CrashLoopBackOff status means that the container in the Pod has repeatedly crashed, and Kubernetes is attempting to restart it with increasing back-off intervals.
+•	"Crash": The container starts but exits with a non-zero status code, indicating an error.
+•	"LoopBackOff": Kubernetes is trying to restart the container but waits progressively longer between retries.
+kubectl describe pod pod5
+
+kubectl logs pod5
+kubectl logs pod5 --all-containers
+kubectl get events
+kubectl exec -it pod5 -n upskill -- /bin/sh
+These didn’t help
+https://stackoverflow.com/questions/31870222/how-can-i-keep-a-container-running-on-kubernetes/35770783#35770783
+The Ubuntu image by default doesn’t run a daemon or process.
+kubectl run pod5 --image=ubuntu -- /bin/bash -c "trap : TERM INT; sleep infinity & wait" && kubectl get pod pod5 -w
+
+

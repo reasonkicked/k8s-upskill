@@ -1,0 +1,8 @@
+Events:
+  Type     Reason   Age                     From     Message
+  ----     ------   ----                    ----     -------
+  Warning  Failed   25m (x60 over 17h)      kubelet  Failed to pull image "nginx:2.0": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/nginx:2.0": failed to resolve reference "docker.io/library/nginx:2.0": docker.io/library/nginx:2.0: not found
+  Warning  Failed   25m (x62 over 17h)      kubelet  Error: ErrImagePull
+  Warning  Failed   25m (x1029 over 17h)    kubelet  Error: ImagePullBackOff
+  Normal   Pulling  7m35s (x71 over 17h)    kubelet  Pulling image "nginx:2.0"
+  Normal   BackOff  2m31s (x1099 over 17h)  kubelet  Back-off pulling image "nginx:2.0"
