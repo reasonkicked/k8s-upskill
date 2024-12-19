@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  namespace: upskill
+spec:
+  replicas: 0
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 15    # Number of extra pods to create during the rollout
+      maxUnavailable: 15 # Number of unavailable pods allowed during the rollout
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.21
+        ports:
+        - containerPort: 80

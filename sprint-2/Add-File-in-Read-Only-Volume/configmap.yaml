@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config-volume
+  namespace: upskill
+data:
+  config.yaml: |
+    auth_enabled: true
+    server:
+      http_listen_port: 3123

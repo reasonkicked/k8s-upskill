@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod2
+  namespace: upskill
+  labels:
+    app: demo
+    role: backend
+  annotations:
+    description: "This is pod2 running nginx"
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.21

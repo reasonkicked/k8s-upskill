@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-env-config
+  namespace: upskill
+data:
+  AUTH_ENABLED: "false"
+  HTTP_LISTEN_PORT: "3100"

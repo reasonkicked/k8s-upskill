@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-cli-config
+  namespace: upskill
+data:
+  auth_enabled: "true"
+  http_listen_port: "8080"
