@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: multi-container-deployment
+  namespace: upskill
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: multi-container-app
+  template:
+    metadata:
+      labels:
+        app: multi-container-app
+    spec:
+      containers:
+      - name: app
+        image: nginx
+        ports:
+        - containerPort: 80
+      - name: logs
+        image: busybox
+        command: ["/bin/sh", "-c"]
+        args: ["while true; do sleep 30; done;"]

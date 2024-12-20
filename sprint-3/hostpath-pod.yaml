@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hostpath-pod
+  namespace: upskill
+spec:
+  containers:
+  - name: app
+    image: busybox
+    command: [ "/bin/sh", "-c" ]
+    args:
+    - while true; do sleep 30; done;
+    volumeMounts:
+    - name: host-kubernetes
+      mountPath: /host/kubernetes
+  volumes:
+  - name: host-kubernetes
+    hostPath:
+      path: /etc/kubernetes
+      type: Directory

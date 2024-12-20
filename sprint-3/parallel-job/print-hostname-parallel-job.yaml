@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: print-hostname-parallel-job
+  namespace: upskill
+spec:
+  completions: 20              # Total number of successful completions
+  parallelism: 3               # Number of Pods running in parallel
+  completionMode: Indexed      # Each pod gets a unique index
+  template:
+    metadata:
+      labels:
+        app: print-hostname-parallel
+    spec:
+      containers:
+      - name: print-hostname
+        image: busybox
+        command: ["/bin/sh", "-c"]
+        args: ["echo Hostname: $(hostname); echo Index: $(KUBERNETES_JOB_INDEX)"]
+        env:
+        - name: KUBERNETES_JOB_INDEX
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.annotations['batch.kubernetes.io/job-completion-index']
+      restartPolicy: Never
+  backoffLimit: 4

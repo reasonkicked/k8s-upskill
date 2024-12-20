@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: print-hostname-cronjob
+  namespace: upskill
+spec:
+  schedule: "*/1 * * * *"  # Run every 5 minutes
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: print-hostname-cronjob
+        spec:
+          containers:
+          - name: print-hostname
+            image: busybox
+            command: ["/bin/sh", "-c"]
+            args: ["hostname"]
+          restartPolicy: Never
+      backoffLimit: 4  # Number of retries before considering the Job failed
+  suspend: false  # Set to true to suspend execution
